@@ -2,6 +2,8 @@
 #include <GLFW/glfw3.h> // GLFW helper library
 #include <iostream>
 
+#define GLFW_DLL
+
 int main (int argc, char** argv) 
 {
   // start GL context and O/S window using the GLFW helper library

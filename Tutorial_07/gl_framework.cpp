@@ -17,6 +17,20 @@ namespace csX75
     glDepthFunc(GL_LESS);
     //Enable depth testing
     glEnable(GL_DEPTH_TEST);
+    // glEnable(GL_LIGHTING);
+    // glEnable(GL_LIGHT0);
+
+    // GLfloat ambientLight[] = {0.2f, 0.2f, 0.2f, 1.0f};
+    // GLfloat diffuseLight[] = {0.8f, 0.8f, 0.8f, 1.0f};
+    // GLfloat specularLight[] = {0.5f, 0.5f, 0.5f, 1.0f};
+    // GLfloat position[] = {-0.9f, 0.0f, 0.0f, 1.0f};
+
+    // glLightfv(GL_LIGHT0, GL_AMBIENT, ambientLight);
+    // glLightfv(GL_LIGHT0, GL_DIFFUSE, diffuseLight);
+    // glLightfv(GL_LIGHT0, GL_SPECULAR, specularLight);
+    // glLightfv(GL_LIGHT0, GL_POSITION, position);
+    // //Ref:  http://www.falloutsoftware.com/tutorials/gl/gl8.htm
+
   }
   
   //!GLFW Error Callback
@@ -44,17 +58,17 @@ namespace csX75
       curr_node = node2; 
     else if (key == GLFW_KEY_3 && action == GLFW_PRESS)
       curr_node = node3; 
-    else if (key == GLFW_KEY_LEFT && action == GLFW_PRESS)
+    else if (key == GLFW_KEY_LEFT && action == GLFW_PRESS && curr_node->get_node_name() == "BoxBody")
       curr_node->dec_ry();
-    else if (key == GLFW_KEY_RIGHT && action == GLFW_PRESS)
+    else if (key == GLFW_KEY_RIGHT && action == GLFW_PRESS && curr_node->get_node_name() == "BoxBody")
       curr_node->inc_ry();
     else if (key == GLFW_KEY_UP && action == GLFW_PRESS)
       curr_node->dec_rx();
     else if (key == GLFW_KEY_DOWN && action == GLFW_PRESS)
       curr_node->inc_rx();
-    else if (key == GLFW_KEY_PAGE_UP && action == GLFW_PRESS)
+    else if (key == GLFW_KEY_PAGE_UP && action == GLFW_PRESS && curr_node->get_node_name() == "BoxBody")
       curr_node->dec_rz();
-    else if (key == GLFW_KEY_PAGE_DOWN && action == GLFW_PRESS)
+    else if (key == GLFW_KEY_PAGE_DOWN && action == GLFW_PRESS && curr_node->get_node_name() == "BoxBody")
       curr_node->inc_rz();
     else if (key == GLFW_KEY_P && action == GLFW_PRESS)
       enable_perspective = !enable_perspective;   

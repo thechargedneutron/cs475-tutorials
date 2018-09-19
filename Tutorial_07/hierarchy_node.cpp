@@ -8,8 +8,9 @@ extern std::vector<glm::mat4> matrixStack;
 namespace csX75
 {
 
-	HNode::HNode(HNode* a_parent, GLuint num_v, glm::vec4* a_vertices, glm::vec4* a_colours, std::size_t v_size, std::size_t c_size){
+	HNode::HNode(HNode* a_parent, GLuint num_v, glm::vec4* a_vertices, glm::vec4* a_colours, std::size_t v_size, std::size_t c_size, std::string name){
 
+		node_name = name;
 		num_vertices = num_v;
 		vertex_buffer_size = v_size;
 		color_buffer_size = c_size;
@@ -50,7 +51,8 @@ namespace csX75
 
 		//initial parameters are set to 0;
 
-		tx=ty=tz=rx=ry=rz=0;
+		tx=ty=tz=0;
+		rx=ry=rz=0;
 
 		update_matrices();
 	}
@@ -62,6 +64,7 @@ namespace csX75
 		rotation = glm::rotate(rotation, glm::radians(rz), glm::vec3(0.0f,0.0f,1.0f));
 
 		translation = glm::translate(glm::mat4(1.0f),glm::vec3(tx,ty,tz));
+		std::cout<<tx<<" "<<ty<<" "<<tz<<std::endl;
 
 
 	}
@@ -139,6 +142,10 @@ namespace csX75
 	void HNode::dec_rz(){
 		rz--;
 		update_matrices();
+	}
+
+	std::string HNode::get_node_name(){
+		return node_name;
 	}
 
 

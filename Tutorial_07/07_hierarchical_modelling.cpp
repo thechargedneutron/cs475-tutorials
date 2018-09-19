@@ -38,20 +38,27 @@ const int num_vertices = 36;
 //Eight vertices in homogenous coordinates
 //elongated cuboid , basic arm in the hierarchy;
 glm::vec4 positions[8] = {
-  glm::vec4(0.0, -0.25, 0.25, 1.0),
-  glm::vec4(0.0, 0.25, 0.25, 1.0),
-  glm::vec4(2.0, 0.25, 0.25, 1.0),
-  glm::vec4(2.0, -0.25, 0.25, 1.0),
-  glm::vec4(0.0, -0.25, -0.25, 1.0),
-  glm::vec4(0.0, 0.25, -0.25, 1.0),
-  glm::vec4(2.0, 0.25, -0.25, 1.0),
-  glm::vec4(2.0, -0.25, -0.25, 1.0)
+  glm::vec4(-2.0, -2.0, 2.0, 1.0),
+  glm::vec4(-2.0, 2.0, 2.0, 1.0),
+  glm::vec4(2.0, 2.0, 2.0, 1.0),
+  glm::vec4(2.0, -2.0, 2.0, 1.0),
+  glm::vec4(-2.0, -2.0, -2.0, 1.0),
+  glm::vec4(-2.0, 2.0, -2.0, 1.0),
+  glm::vec4(2.0, 2.0, -2.0, 1.0),
+  glm::vec4(2.0, -2.0, -2.0, 1.0)
 };
 
 //RGBA colors
 glm::vec4 colors[8] = {
   glm::vec4(0.0, 0.0, 0.0, 1.0),
   glm::vec4(1.0, 0.0, 0.0, 1.0),
+  // glm::vec4(1.0, 0.0, 0.0, 1.0),
+  // glm::vec4(1.0, 0.0, 0.0, 1.0),
+  // glm::vec4(1.0, 0.0, 0.0, 1.0),
+  // glm::vec4(1.0, 0.0, 0.0, 1.0),
+  // glm::vec4(1.0, 0.0, 0.0, 1.0),
+  // glm::vec4(1.0, 0.0, 0.0, 1.0),
+  // glm::vec4(1.0, 0.0, 0.0, 1.0),
   glm::vec4(1.0, 1.0, 0.0, 1.0),
   glm::vec4(0.0, 1.0, 0.0, 1.0),
   glm::vec4(0.0, 0.0, 1.0, 1.0),
@@ -113,13 +120,12 @@ void initBuffersGL(void)
   colorcube();
 
   //note that the buffers are initialized in the respective constructors
- 
-  node1 = new csX75::HNode(NULL,num_vertices,v_positions,v_colors,sizeof(v_positions),sizeof(v_colors));
-  node2 = new csX75::HNode(node1,num_vertices,v_positions,v_colors,sizeof(v_positions),sizeof(v_colors));
-  node2->change_parameters(2.0,0.0,0.0,0.0,0.0,0.0);
-  node3 = new csX75::HNode(node2,num_vertices,v_positions,v_colors,sizeof(v_positions),sizeof(v_colors));
-  node3->change_parameters(2.0,0.0,0.0,0.0,0.0,0.0);
-  root_node = curr_node = node3;
+  std::string node1_name = "BoxBody";
+  std::string node2_name = "BoxLid"; 
+  node1 = new csX75::HNode(NULL,num_vertices,v_positions,v_colors,sizeof(v_positions),sizeof(v_colors), node1_name);
+  node2 = new csX75::HNode(node1,num_vertices,v_positions,v_colors,sizeof(v_positions),sizeof(v_colors), node2_name);
+  node2->change_parameters(0.0,4.0,0.0,0.0,0.0,0.0);
+  root_node = curr_node = node2;
 
 }
 
@@ -134,7 +140,7 @@ void renderGL(void)
   c_rotation_matrix = glm::rotate(c_rotation_matrix, glm::radians(c_yrot), glm::vec3(0.0f,1.0f,0.0f));
   c_rotation_matrix = glm::rotate(c_rotation_matrix, glm::radians(c_zrot), glm::vec3(0.0f,0.0f,1.0f));
 
-  glm::vec4 c_pos = glm::vec4(c_xpos,c_ypos,c_zpos, 1.0)*c_rotation_matrix;
+  glm::vec4 c_pos = glm::vec4(-2.0,2.0,c_zpos, 1.0)*c_rotation_matrix;
   glm::vec4 c_up = glm::vec4(c_up_x,c_up_y,c_up_z, 1.0)*c_rotation_matrix;
   //Creating the lookat matrix
   lookat_matrix = glm::lookAt(glm::vec3(c_pos),glm::vec3(0.0),glm::vec3(c_up));

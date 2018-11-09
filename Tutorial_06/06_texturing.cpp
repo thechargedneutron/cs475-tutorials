@@ -92,34 +92,49 @@ glm::vec4 v_positions[num_vertices];
 glm::vec4 v_colors[num_vertices];
 glm::vec4 v_normals[num_vertices];
 glm::vec2 tex_coords[num_vertices];
+
+glm::vec4 cube_center = glm::vec4(0.0, 0.0, 0.0, 0.0);
+glm::vec4 face_center;
+glm::vec4 temp;
+
 // quad generates two triangles for each face and assigns colors to the vertices
 void quad(int a, int b, int c, int d, glm::vec4 color)
 {
+  for(int y=0; y<8; y++){
+    cube_center += positions[y];
+  }
+  cube_center = cube_center * 0.125f;
+
+  face_center = (positions[a] + positions[b] + positions[c] + positions[d]) * 0.25f;
+
+  temp = cube_center - face_center + glm::vec4(0.0, 0.0, 0.0, 1.0);
+
   v_colors[tri_idx] = color; v_positions[tri_idx] = positions[a]; 
-  v_normals[tri_idx] = normals[a]; 
+  v_normals[tri_idx] = temp; 
   tex_coords[tri_idx] = t_coords[1];
   tri_idx++;
   v_colors[tri_idx] = color; v_positions[tri_idx] = positions[b];
-  v_normals[tri_idx] = normals[b]; 
+  v_normals[tri_idx] = temp; 
   tex_coords[tri_idx] = t_coords[0];
   tri_idx++;
   v_colors[tri_idx] = color; v_positions[tri_idx] = positions[c]; 
-  v_normals[tri_idx] = normals[c]; 
+  v_normals[tri_idx] = temp; 
   tex_coords[tri_idx] = t_coords[2];
   tri_idx++;
   v_colors[tri_idx] = color; v_positions[tri_idx] = positions[a]; 
-  v_normals[tri_idx] = normals[a]; 
+  v_normals[tri_idx] = temp; 
   tex_coords[tri_idx] = t_coords[1];
   tri_idx++;
   v_colors[tri_idx] = color; v_positions[tri_idx] = positions[c]; 
-  v_normals[tri_idx] = normals[c]; 
+  v_normals[tri_idx] = temp; 
   tex_coords[tri_idx] = t_coords[2];
   tri_idx++;
   v_colors[tri_idx] = color; v_positions[tri_idx] = positions[d]; 
-  v_normals[tri_idx] = normals[d]; 
+  v_normals[tri_idx] = temp; 
   tex_coords[tri_idx] = t_coords[3];
   tri_idx++;
  }
+
 
 // generate 12 triangles: 36 vertices and 36 colors
 void colorcube(void)
